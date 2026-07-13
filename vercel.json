@@ -1,0 +1,16 @@
+{
+  "services": {
+    "frontend": {
+      "root": "frontend/", 
+      "framework": "react" 
+    },
+    "backend": {
+      "root": "backend/",
+      "entrypoint": "dist/main.js"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": { "service": "backend" } },
+    { "source": "/(.*)", "destination": { "service": "frontend" } }
+  ]
+}
