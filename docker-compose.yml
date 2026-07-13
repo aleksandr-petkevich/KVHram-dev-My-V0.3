@@ -1,0 +1,60 @@
+# version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6
+    container_name: tz-admin-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_DATABASE: tz-admin
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - tz-admin-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: tz-admin-backend
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      MONGODB_URI: mongodb://admin:admin123@mongodb:27017/tz-admin?authSource=admin
+      JWT_SECRET: your-secret-key-change-in-production
+      JWT_EXPIRES_IN: 7d
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: admin
+    depends_on:
+      - mongodb
+    networks:
+      - tz-admin-network
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: tz-admin-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:3001/api
+    depends_on:
+      - backend
+    networks:
+      - tz-admin-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  tz-admin-network:
+    driver: bridge

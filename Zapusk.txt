@@ -1,0 +1,71 @@
+Запуск
+
+# Docker (рекомендуется)
+docker-compose up --build
+
+# Или локально
+cd backend ; npm install ; npm run start:dev
+cd Frontend ; npm install ; npm run dev
+
+
+__________________________
+База данных __уже запущена__ и работает!
+
+## Текущий статус:
+
+✅ __MongoDB__ (tz-admin-mongodb) - запущена на порту 27017 ✅ __Backend__ (tz-admin-backend) - запущен на порту 3001 ✅ __Frontend__ (tz-admin-frontend) - запущен на порту 3000
+
+## Основные команды для управления:
+
+### Просмотр статуса:
+
+```bash
+docker-compose ps
+```
+
+### Остановка всех сервисов:
+
+```bash
+docker-compose down
+```
+
+### Запуск всех сервисов:
+
+```bash
+docker-compose up -d
+```
+
+### Перезапуск конкретного сервиса:
+
+```bash
+docker-compose restart mongodb  # только база данных
+docker-compose restart backend  # только бэкенд
+docker-compose restart frontend # только фронтенд
+```
+
+### Просмотр логов:
+
+```bash
+docker-compose logs mongodb  # логи базы данных
+docker-compose logs backend  # логи бэкенда
+docker-compose logs frontend # логи фронтенда
+```
+
+## Подключение к базе данных:
+
+__Адрес для подключения:__ `localhost:27017`
+
+- __Username:__ admin
+- __Password:__ admin123
+- __Database:__ tz-admin
+
+## Админ панель:
+
+Доступна по адресу: [](http://localhost:3000/admin)<http://localhost:3000/admin>
+
+- __Username:__ admin
+- __Password:__ admin
+
+В админ панели вы можете создавать, редактировать и удалять события в расписании.
+
+Если нужно что-то конкретное сделать с базой данных (например, посмотреть данные, создать резервную копию), дайте знать!
