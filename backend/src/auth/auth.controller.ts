@@ -9,6 +9,11 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 export class AuthController {
     constructor(private authService: AuthService) { }
 
+    @Get('ping')
+    ping() {
+        return { status: 'ok', timestamp: new Date().toISOString() };
+    }
+
     @UseGuards(LocalAuthGuard)
     @Post('login')
     @ApiOperation({ summary: 'Login with username and password' })
