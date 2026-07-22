@@ -23,10 +23,10 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
+
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000))
-    
+
     setIsSubmitting(false)
     setIsSubmitted(true)
     setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
@@ -37,7 +37,7 @@ export default function ContactPage() {
       icon: MapPin,
       title: 'Адрес',
       content: 'г. Минск, ул. Тимирязева, д. 96',
-      link: 'https://yandex.ru/maps/-/CHQmrY1b',
+      link: 'https://yandex.by/maps/-/CTbrbA9G',
       linkText: 'Открыть на карте'
     },
     {
@@ -75,7 +75,7 @@ export default function ContactPage() {
               Контакты
             </h1>
             <p className="text-lg text-primary-foreground/90">
-              Мы всегда рады видеть вас в нашем храме. 
+              Мы всегда рады видеть вас в нашем храме.
               Свяжитесь с нами любым удобным способом.
             </p>
           </motion.div>
@@ -100,7 +100,7 @@ export default function ContactPage() {
                     </div>
                     <h3 className="font-serif font-bold text-lg mb-2">{item.title}</h3>
                     {item.link ? (
-                      <a 
+                      <a
                         href={item.link}
                         target={item.link.startsWith('http') ? '_blank' : undefined}
                         rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
@@ -138,7 +138,7 @@ export default function ContactPage() {
               <h2 className="font-serif text-2xl font-bold mb-6">Как нас найти</h2>
               <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-lg border border-border">
                 <iframe
-                  src="https://yandex.ru/map-widget/v1/?um=constructor%3A7d4e7a58f5c8f4e8b2c9d1a3e5f7b9c1&source=constructor"
+                  src="https://yandex.by/map-widget/v1/?pt=27.481964%2C53.930680&z=15.69&l=map"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -147,7 +147,7 @@ export default function ContactPage() {
                   title="Карта расположения храма"
                 />
               </div>
-              
+
               <div className="mt-6 p-6 bg-muted rounded-xl">
                 <h3 className="font-serif font-bold mb-3">Как добраться</h3>
                 <ul className="space-y-2 text-muted-foreground">
@@ -174,7 +174,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="font-serif text-2xl font-bold mb-6">Напишите нам</h2>
-              
+
               {isSubmitted ? (
                 <Card className="p-8 text-center">
                   <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
@@ -218,7 +218,7 @@ export default function ContactPage() {
                           />
                         </div>
                       </div>
-                      
+
                       <div>
                         <label htmlFor="email" className="block text-sm font-medium mb-2">
                           Email *
@@ -232,7 +232,7 @@ export default function ContactPage() {
                           placeholder="ivan@example.com"
                         />
                       </div>
-                      
+
                       <div>
                         <label htmlFor="subject" className="block text-sm font-medium mb-2">
                           Тема обращения *
@@ -245,7 +245,7 @@ export default function ContactPage() {
                           placeholder="Вопрос о крещении"
                         />
                       </div>
-                      
+
                       <div>
                         <label htmlFor="message" className="block text-sm font-medium mb-2">
                           Сообщение *
@@ -259,9 +259,9 @@ export default function ContactPage() {
                           placeholder="Ваше сообщение..."
                         />
                       </div>
-                      
-                      <Button 
-                        type="submit" 
+
+                      <Button
+                        type="submit"
                         className="w-full"
                         disabled={isSubmitting}
                       >

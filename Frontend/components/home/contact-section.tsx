@@ -19,7 +19,7 @@ export function ContactSection() {
             className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg"
           >
             <iframe
-              src="https://yandex.by/map-widget/v1/?um=constructor%3A1b7a8b9a8b7c6d5e4f3a2b1c0d9e8f7a6&source=constructor"
+              src="https://yandex.by/map-widget/v1/?pt=27.481964%2C53.930680&z=15.69&l=map"
               width="100%"
               height="100%"
               style={{ border: 0, position: 'absolute', inset: 0 }}
