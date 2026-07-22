@@ -8,45 +8,60 @@ import { ScheduleSlider } from '@/components/ui/schedule-slider'
 
 export function ScheduleSection() {
   return (
-    <section className="timetable py-16 md:py-24">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-8"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 text-primary rounded-full text-sm font-medium mb-3">
-            <Calendar className="w-4 h-4" aria-hidden="true" />
-            Расписание
-          </div>
-          <h2 className="timetable__title font-serif text-3xl font-bold text-foreground mb-2">
-            Расписание богослужений
-          </h2>
-         
-        </motion.div>
-
-        <ScheduleSlider />
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-center mt-8"
-        >
-          <Button
-            asChild
-            className="bg-primary text-primary-foreground hover:bg-primary/90"
+    <>
+      <section className="timetable py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-8"
           >
-            <Link href="/schedule">
-              Полное расписание
-              <ChevronRight className="w-4 h-4 ml-2" aria-hidden="true" />
-            </Link>
-          </Button>
-        </motion.div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 text-primary rounded-full text-sm font-medium mb-3">
+              <Calendar className="w-4 h-4" aria-hidden="true" />
+              Расписание
+            </div>
+            <h2 className="timetable__title font-serif text-3xl font-bold text-foreground mb-2">
+              Расписание богослужений
+            </h2>
+
+          </motion.div>
+
+          <ScheduleSlider />
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-center mt-8"
+          >
+            <Button
+              asChild
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+            >
+              <Link href="/schedule">
+                Полное расписание
+                <ChevronRight className="w-4 h-4 ml-2" aria-hidden="true" />
+              </Link>
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Instagram Section */}
+      <div className="py-16 md:py-24 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
+            Наша страница в Instagram
+          </h2>
+
+          {/* Elfsight Instagram Feed */}
+          <script src="https://elfsightcdn.com/platform.js" async></script>
+          <div className="elfsight-app-035a6e06-61ee-41b3-ad55-179b3d76c13e" data-elfsight-app-lazy></div>
+        </div>
       </div>
-    </section>
+    </>
   )
 }

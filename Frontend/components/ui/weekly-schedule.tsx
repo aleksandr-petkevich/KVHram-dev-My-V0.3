@@ -143,19 +143,19 @@ export function WeeklySchedule() {
                                 key={index}
                                 className={cn(
                                     "overflow-hidden transition-all",
-                                    isToday && "border-2 border-destructive"
+                                    isToday && "border-2 border-green-600"
                                 )}
                             >
                                 <CardContent className="p-0">
                                     {/* Заголовок дня */}
                                     <div className={cn(
                                         "p-4 md:p-6 border-b",
-                                        isToday ? "bg-destructive/10" : "bg-muted/30"
+                                        isToday ? "bg-green-50" : "bg-muted/30"
                                     )}>
                                         <div className="flex items-center gap-4">
                                             <div className={cn(
                                                 "text-4xl md:text-5xl font-bold font-serif",
-                                                isToday ? "text-destructive" : "text-secondary"
+                                                isToday ? "text-green-600" : "text-secondary"
                                             )}>
                                                 {day.date.format('D')}
                                             </div>
@@ -173,7 +173,7 @@ export function WeeklySchedule() {
                                                 </div>
                                             </div>
                                             {isToday && (
-                                                <span className="ml-auto px-3 py-1 bg-destructive text-white text-sm rounded-full">
+                                                <span className="ml-auto px-3 py-1 bg-green-600 text-white text-sm rounded-full">
                                                     сегодня
                                                 </span>
                                             )}

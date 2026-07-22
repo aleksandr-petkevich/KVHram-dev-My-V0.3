@@ -19,7 +19,7 @@ export function ContactSection() {
             className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg"
           >
             <iframe
-              src="https://yandex.ru/map-widget/v1/?um=constructor%3A1b7a8b9a8b7c6d5e4f3a2b1c0d9e8f7a6&amp;source=constructor"
+              src="https://yandex.by/map-widget/v1/?um=constructor%3A1b7a8b9a8b7c6d5e4f3a2b1c0d9e8f7a6&source=constructor"
               width="100%"
               height="100%"
               style={{ border: 0, position: 'absolute', inset: 0 }}
@@ -33,8 +33,8 @@ export function ContactSection() {
                 <p className="text-muted-foreground">
                   г. Минск, ул. Тимирязева, д. 96
                 </p>
-                <a 
-                  href="https://yandex.ru/maps/-/CHQmrY1b"
+                <a
+                  href="https://yandex.by/maps/-/CTbriF6M"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:underline mt-2 inline-block"
@@ -59,7 +59,7 @@ export function ContactSection() {
               Как нас найти
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              Мы всегда рады видеть вас в нашем храме. Приходите на богослужения, 
+              Мы всегда рады видеть вас в нашем храме. Приходите на богослужения,
               задавайте вопросы священникам, становитесь частью нашей приходской семьи.
             </p>
 
@@ -71,8 +71,8 @@ export function ContactSection() {
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">Адрес</h3>
                   <p className="text-muted-foreground">г. Минск, ул. Тимирязева, д. 96</p>
-                  <a 
-                    href="https://yandex.ru/maps/-/CHQmrY1b"
+                  <a
+                    href="https://yandex.by/maps/-/CTbriF6M"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-primary hover:underline"
@@ -88,7 +88,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">Телефон</h3>
-                  <a 
+                  <a
                     href="tel:+375291220196"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
@@ -103,7 +103,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                  <a 
+                  <a
                     href="mailto:kvhram@mail.by"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >

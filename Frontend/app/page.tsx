@@ -4,9 +4,8 @@ import {
   AnnouncementsSection,
   AboutSection,
   ScheduleSection,
-  SacramentsSection,
   ContactSection,
-  FeaturedSection,
+  MuseumSection,
 } from '@/components/home'
 
 export default function HomePage() {
@@ -14,14 +13,11 @@ export default function HomePage() {
     <PageWrapper>
       <HeroSection />
 
-       <ScheduleSection />
-       <AboutSection />
+      <ScheduleSection />
+      <AboutSection />
 
-      <FeaturedSection />
+      <MuseumSection />
 
-      <AnnouncementsSection />
-
-      <SacramentsSection />
       <ContactSection />
     </PageWrapper>
   )

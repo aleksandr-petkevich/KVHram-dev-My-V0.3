@@ -116,7 +116,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll indicator arrow pointing to schedule */}
+      {/* Scroll indicator arrow pointing to schedule
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -150,7 +150,7 @@ export function HeroSection() {
             </svg>
           </div>
         </motion.div>
-      </motion.div>
+      </motion.div> */}
     </section>
   )
 }

@@ -12,62 +12,28 @@ export function AboutSection() {
   return (
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative"
-          >
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-8"
+        >
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-6">
+            О храме
+          </h2>
+          <Link href="/about">
+            <div className="relative aspect-[16/9] max-w-4xl mx-auto rounded-2xl overflow-hidden group cursor-pointer">
               <Image
                 src="/images/church-interior.jpg"
-                alt="Интерьер храма"
+                alt="Храм Воздвижения Креста Господня в Минске"
                 fill
-                className="object-cover"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
             </div>
-            {/* Decorative element */}
-            <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-secondary/20 rounded-2xl -z-10" />
-            <div className="absolute -top-6 -left-6 w-32 h-32 bg-primary/10 rounded-2xl -z-10" />
-          </motion.div>
-
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
-              О нашем храме
-            </span>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-6 text-balance">
-              Храм Воздвижения Креста Господня в Минске
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-6">
-              Наш храм — место молитвы, духовного возрастания и общения верующих людей. 
-              История прихода насчитывает многие годы служения Богу и людям. 
-              Мы приглашаем всех желающих присоединиться к нашей приходской семье.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-8">
-              В храме совершаются все Таинства Православной Церкви: Крещение, Венчание, 
-              Исповедь, Причастие, Соборование. Работает воскресная школа для детей 
-              и проводятся беседы для взрослых.
-            </p>
-
-            <Button asChild>
-              <Link href="/about">
-                Подробнее о храме
-                <ChevronRight className="w-4 h-4 ml-2" />
-              </Link>
-            </Button>
-          </motion.div>
-        </div>
-
-       
+          </Link>
+        </motion.div>
       </div>
     </section>
   )
