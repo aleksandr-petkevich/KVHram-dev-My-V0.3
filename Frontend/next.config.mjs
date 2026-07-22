@@ -29,7 +29,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://backend-kv-hram-dev-my-v0-3-y2sj-lfdt0pz3q.vercel.app/api/:path*',
+        destination: 'https://backend-kv-hram-dev-my-v0-3-y2sj.vercel.app/api/:path*',
       },
     ];
   },
