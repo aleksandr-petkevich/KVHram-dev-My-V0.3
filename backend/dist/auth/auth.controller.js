@@ -19,9 +19,11 @@ const local_auth_guard_1 = require("./local-auth.guard");
 const jwt_auth_guard_1 = require("./jwt-auth.guard");
 const swagger_1 = require("@nestjs/swagger");
 let AuthController = class AuthController {
-    authService;
     constructor(authService) {
         this.authService = authService;
+    }
+    ping() {
+        return { status: 'ok', timestamp: new Date().toISOString() };
     }
     login(req) {
         return this.authService.login(req.user);
@@ -31,6 +33,12 @@ let AuthController = class AuthController {
     }
 };
 exports.AuthController = AuthController;
+__decorate([
+    (0, common_1.Get)('ping'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "ping", null);
 __decorate([
     (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
     (0, common_1.Post)('login'),

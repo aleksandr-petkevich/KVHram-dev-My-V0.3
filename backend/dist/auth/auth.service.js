@@ -13,7 +13,6 @@ exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 let AuthService = class AuthService {
-    jwtService;
     constructor(jwtService) {
         this.jwtService = jwtService;
     }

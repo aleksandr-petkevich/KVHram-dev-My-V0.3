@@ -20,7 +20,6 @@ const update_event_dto_1 = require("./dto/update-event.dto");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const swagger_1 = require("@nestjs/swagger");
 let EventsController = class EventsController {
-    eventsService;
     constructor(eventsService) {
         this.eventsService = eventsService;
     }

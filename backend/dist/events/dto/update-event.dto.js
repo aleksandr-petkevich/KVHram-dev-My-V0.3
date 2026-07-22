@@ -13,20 +13,6 @@ exports.UpdateEventDto = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 class UpdateEventDto {
-    date;
-    time;
-    title;
-    additional_title;
-    description;
-    communicants;
-    parishioners;
-    other;
-    status;
-    priority;
-    titleColor;
-    additionalTitleColor;
-    descriptionColor;
-    otherColor;
 }
 exports.UpdateEventDto = UpdateEventDto;
 __decorate([

@@ -18,7 +18,6 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const event_schema_1 = require("./schemas/event.schema");
 let EventsService = class EventsService {
-    eventModel;
     constructor(eventModel) {
         this.eventModel = eventModel;
     }

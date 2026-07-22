@@ -18,8 +18,19 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            config_1.ConfigModule.forRoot({ isGlobal: true }),
-            mongoose_1.MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/tz-admin'),
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                envFilePath: process.env.NODE_ENV === 'production'
+                    ? '.env.production'
+                    : '.env',
+            }),
+            mongoose_1.MongooseModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                useFactory: async (configService) => ({
+                    uri: configService.get('MONGODB_URI'),
+                }),
+                inject: [config_1.ConfigService],
+            }),
             auth_module_1.AuthModule,
             events_module_1.EventsModule,
         ],

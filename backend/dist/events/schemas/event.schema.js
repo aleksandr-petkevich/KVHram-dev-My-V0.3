@@ -13,20 +13,6 @@ exports.EventSchema = exports.Event = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let Event = class Event extends mongoose_2.Document {
-    date;
-    time;
-    title;
-    additional_title;
-    description;
-    communicants;
-    parishioners;
-    other;
-    status;
-    priority;
-    titleColor;
-    additionalTitleColor;
-    descriptionColor;
-    otherColor;
 };
 exports.Event = Event;
 __decorate([
