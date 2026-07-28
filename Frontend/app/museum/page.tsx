@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Calendar, Phone, Clock, MapPin, X } from 'lucide-react'
 import { PageWrapper } from '@/components/layout'
 import { Button } from '@/components/ui/button'
+import { AnimatedHero } from '@/components/ui/animated-hero'
 import { useState } from 'react'
 
 
@@ -39,29 +40,12 @@ export default function MuseumPage() {
   return (
     <PageWrapper>
       {/* Hero */}
-      <section className="relative py-24 md:py-32">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/museum/hero.jpg"
-            alt="Музей Шталаг-352"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 " />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            <h1 className="font-serif text-4xl md:text-5xl font-bold text-primary-foreground mb-6 text-balance">
-              Музей Шталаг-352
-            </h1>
-            <p className="text-lg text-primary-foreground/90 leading-relaxed text-balance">
-              Музей подвига советских военнопленных – узников концлагеря,
-              расположенный на территории прихода Храма Воздвижения Креста Господня
-            </p>
-          </div>
-        </div>
-      </section>
+      <AnimatedHero
+        imageSrc="/images/museum/hero.jpg"
+        imageAlt="Музей Шталаг-352"
+        title="Музей Шталаг-352"
+        subtitle="Музей подвига советских военнопленных – узников концлагеря, расположенный на территории прихода Храма Воздвижения Креста Господня"
+      />
 
       {/* Main Info */}
       <section className="py-16 md:py-24">

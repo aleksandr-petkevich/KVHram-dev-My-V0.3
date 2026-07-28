@@ -5,6 +5,7 @@ import { ChevronRight, History, Users, Church, Heart } from 'lucide-react'
 import { PageWrapper } from '@/components/layout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { AnimatedHero } from '@/components/ui/animated-hero'
 
 export const metadata: Metadata = {
   title: 'О храме',
@@ -39,32 +40,12 @@ export default function AboutPage() {
   return (
     <PageWrapper>
       {/* Hero */}
-      <section className="relative py-24 md:py-32">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/church-interior.jpg"
-            alt="Интерьер храма"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0" />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl">
-            <span className="inline-block px-4 py-2 bg-secondary/20 text-secondary rounded-full text-sm font-medium mb-4">
-              О храме
-            </span>
-            <h1 className="font-serif text-4xl md:text-5xl font-bold text-primary-foreground mb-6 text-balance">
-              Храм Воздвижения Креста Господня
-            </h1>
-            <p className="text-lg text-primary-foreground/90 leading-relaxed">
-              Наш храм — место молитвы, духовного возрастания и общения верующих людей. 
-              Мы приглашаем вас познакомиться с нашей историей, духовенством и приходской жизнью.
-            </p>
-          </div>
-        </div>
-      </section>
+      <AnimatedHero
+        imageSrc="/images/church-interior.jpg"
+        imageAlt="Интерьер храма"
+        title="Храм Воздвижения Креста Господня"
+        subtitle="Наш храм — место молитвы, духовного возрастания и общения верующих людей. Мы приглашаем вас познакомиться с нашей историей, духовенством и приходской жизнью."
+      />
 
       {/* Main content */}
       <section className="py-16 md:py-24">
@@ -76,17 +57,17 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Храм Воздвижения Креста Господня в городе Минске — это место, где верующие 
-                  собираются для молитвы, участия в Таинствах и духовного общения. 
+                  Храм Воздвижения Креста Господня в городе Минске — это место, где верующие
+                  собираются для молитвы, участия в Таинствах и духовного общения.
                   Наш приход является частью Минской епархии Белорусской Православной Церкви.
                 </p>
                 <p>
-                  В храме ежедневно совершаются богослужения, работает воскресная школа для детей, 
-                  проводятся огласительные беседы перед Крещением и другими Таинствами. 
+                  В храме ежедневно совершаются богослужения, работает воскресная школа для детей,
+                  проводятся огласительные беседы перед Крещением и другими Таинствами.
                   Мы стремимся создать тёплую, семейную атмосферу для всех прихожан.
                 </p>
                 <p>
-                  Наши двери всегда открыты для всех, кто ищет Бога, хочет узнать больше 
+                  Наши двери всегда открыты для всех, кто ищет Бога, хочет узнать больше
                   о православной вере или просто нуждается в духовной поддержке и утешении.
                 </p>
               </div>
@@ -176,7 +157,7 @@ export default function AboutPage() {
             Приходите к нам
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-            Мы всегда рады видеть новых людей на наших богослужениях. 
+            Мы всегда рады видеть новых людей на наших богослужениях.
             Ознакомьтесь с расписанием и приходите.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Layout, Button, Table, Modal, Form, Input, InputNumber, Select, DatePicker, TimePicker, message, Space, Card, Row, Col, Popover, Typography, Tag, Checkbox } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined, ReloadOutlined, LogoutOutlined } from '@ant-design/icons';
+import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined, ReloadOutlined, LogoutOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 import { apiClient, Event } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
@@ -95,6 +95,29 @@ export default function AdminPage() {
   const [eveFormDate, setEveFormDate] = useState<dayjs.Dayjs | null>(null);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [eventToDelete, setEventToDelete] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const toggleRowExpand = (eventId: string) => {
+    setExpandedRows(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(eventId)) {
+        newSet.delete(eventId);
+      } else {
+        newSet.add(eventId);
+      }
+      return newSet;
+    });
+  };
 
   useEffect(() => {
     const token = apiClient.getToken();
@@ -157,22 +180,15 @@ export default function AdminPage() {
   const handleDeleteConfirm = async () => {
     if (eventToDelete) {
       try {
-        // Optimistically remove from local state immediately
         setEvents(events.filter(event => event._id !== eventToDelete));
         setTotal(prev => prev - 1);
-
-        // Then update from server
         await apiClient.deleteEvent(eventToDelete);
         message.success('Событие удалено');
-
-        // Refresh the list to ensure consistency
         await fetchEvents();
       } catch (error) {
         message.error('Ошибка удаления события');
-        // On error, refresh to restore correct state
         fetchEvents();
       } finally {
-        // Always close the modal and reset state
         setDeleteModalVisible(false);
         setEventToDelete(null);
       }
@@ -187,7 +203,6 @@ export default function AdminPage() {
   const handleSubmit = async (values: any) => {
     try {
       if (editingEvent) {
-        // Update existing event
         const eventData = {
           ...values,
           date: values.date ? values.date.toISOString() : undefined,
@@ -196,7 +211,6 @@ export default function AdminPage() {
         await apiClient.updateEvent(editingEvent._id, eventData);
         message.success('Событие обновлено');
       } else {
-        // Create main event
         const mainEventData = {
           ...values,
           date: values.date ? values.date.toISOString() : undefined,
@@ -205,7 +219,6 @@ export default function AdminPage() {
         await apiClient.createEvent(mainEventData);
         message.success('Событие создано');
 
-        // Create eve event if checkbox is checked
         if (hasEveService && values.eve_date && values.eve_time && values.eve_title) {
           const eveEventData = {
             title: values.eve_title,
@@ -258,6 +271,7 @@ export default function AdminPage() {
       title: 'Дата',
       dataIndex: 'date',
       key: 'date',
+      width: 100,
       render: (date: string) => date ? dayjs(date).format('DD.MM.YYYY') : '-',
       sorter: true,
     },
@@ -265,38 +279,32 @@ export default function AdminPage() {
       title: 'Время',
       dataIndex: 'time',
       key: 'time',
+      width: 70,
       render: (time: string) => time || '-',
     },
     {
       title: 'Название',
       dataIndex: 'title',
       key: 'title',
+      ellipsis: isMobile,
+      hideInMenu: isMobile,
       render: (text: string, record: Event) => {
         const sortWorshipServices = (services: string[]): string[] => {
           if (!services || services.length === 0) return [];
-
           return services.sort((a, b) => {
             const indexA = WORSHIP_SERVICES.indexOf(a);
             const indexB = WORSHIP_SERVICES.indexOf(b);
-
-            if (indexA >= 0 && indexB >= 0) {
-              return indexA - indexB;
-            } else if (indexA >= 0) {
-              return -1;
-            } else if (indexB >= 0) {
-              return 1;
-            } else {
-              return services.indexOf(a) - services.indexOf(b);
-            }
+            if (indexA >= 0 && indexB >= 0) return indexA - indexB;
+            else if (indexA >= 0) return -1;
+            else if (indexB >= 0) return 1;
+            else return services.indexOf(a) - services.indexOf(b);
           });
         };
-
         const formatServices = (services: string[]): string => {
           if (!services || services.length === 0) return '';
           const sorted = sortWorshipServices(services);
           return sorted.join('. ') + '.';
         };
-
         return (
           <div>
             <div style={{ color: record.titleColor || 'inherit', fontWeight: 500 }}>{text}</div>
@@ -309,31 +317,46 @@ export default function AdminPage() {
         );
       },
     },
-    {
-      title: 'Статус',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status: string) => {
-        const option = STATUS_OPTIONS.find(s => s.value === status);
-        return <span style={{ color: option?.color === 'default' ? 'inherit' : option?.color }}>{option?.label}</span>;
+    ...(isMobile ? [] : [
+      {
+        title: 'Статус',
+        dataIndex: 'status',
+        key: 'status',
+        render: (status: string) => {
+          const option = STATUS_OPTIONS.find(s => s.value === status);
+          return <span style={{ color: option?.color === 'default' ? 'inherit' : option?.color }}>{option?.label}</span>;
+        },
       },
-    },
-    {
-      title: 'Приоритет',
-      dataIndex: 'priority',
-      key: 'priority',
-      render: (priority: string) => {
-        const option = PRIORITY_OPTIONS.find(p => p.value === priority);
-        return <span style={{ color: option?.color === 'default' ? 'inherit' : option?.color }}>{option?.label}</span>;
+      {
+        title: 'Приоритет',
+        dataIndex: 'priority',
+        key: 'priority',
+        render: (priority: string) => {
+          const option = PRIORITY_OPTIONS.find(p => p.value === priority);
+          return <span style={{ color: option?.color === 'default' ? 'inherit' : option?.color }}>{option?.label}</span>;
+        },
       },
-    },
+    ]),
     {
       title: 'Действия',
       key: 'actions',
+      width: isMobile ? 50 : undefined,
+      hideInMenu: isMobile,
       render: (_: any, record: Event) => (
         <Space>
-          <Button icon={<EditOutlined />} size="small" onClick={() => handleEdit(record)} />
-          <Button icon={<DeleteOutlined />} size="small" danger onClick={() => handleDeleteClick(record._id)} />
+          {isMobile && (
+            <Button
+              icon={expandedRows.has(record._id) ? <UpOutlined /> : <DownOutlined />}
+              size="small"
+              onClick={() => toggleRowExpand(record._id)}
+            />
+          )}
+          {!isMobile && (
+            <>
+              <Button icon={<EditOutlined />} size="small" onClick={() => handleEdit(record)} />
+              <Button icon={<DeleteOutlined />} size="small" danger onClick={() => handleDeleteClick(record._id)} />
+            </>
+          )}
         </Space>
       ),
     },
@@ -348,10 +371,22 @@ export default function AdminPage() {
   return (
     <ConfigProvider locale={ruRU}>
       <Layout style={{ minHeight: '100vh' }}>
-        <Header style={{ background: '#fff', padding: '0 24px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '64px' }}>
-            <Title level={3} style={{ margin: 0 }}>Админ панель - Расписание</Title>
-            <Space>
+        <Header style={{
+          background: '#fff',
+          padding: isMobile ? '16px' : '0 24px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          height: 'auto'
+        }}>
+          <div style={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            justifyContent: isMobile ? 'center' : 'space-between',
+            alignItems: isMobile ? 'center' : 'center',
+            gap: isMobile ? '16px' : '0',
+            height: isMobile ? 'auto' : '64px'
+          }}>
+            <Title level={3} style={{ margin: 0, textAlign: isMobile ? 'center' : 'left' }}>Админ панель - Расписание</Title>
+            <Space style={{ width: isMobile ? '100%' : 'auto', justifyContent: isMobile ? 'center' : 'flex-end' }}>
               <Button icon={<ReloadOutlined />} onClick={fetchEvents}>Обновить</Button>
               <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate}>Создать событие</Button>
               <Button icon={<LogoutOutlined />} onClick={() => { apiClient.clearToken(); router.push('/login'); }}>Выйти</Button>
@@ -505,6 +540,8 @@ export default function AdminPage() {
                   dataSource={events}
                   rowKey="_id"
                   loading={loading}
+                  size={isMobile ? 'small' : 'middle'}
+                  scroll={{ x: isMobile ? 400 : undefined }}
                   pagination={{
                     current: page,
                     pageSize: pageSize,
@@ -524,6 +561,30 @@ export default function AdminPage() {
                       setSortBy(sorter.field as string);
                       setSortOrder(sorter.order as 'asc' | 'desc');
                     }
+                  }}
+                  expandable={{
+                    expandedRowRender: (record: Event) => {
+                      const option = STATUS_OPTIONS.find(s => s.value === record.status);
+                      const priorityOption = PRIORITY_OPTIONS.find(p => p.value === record.priority);
+                      return (
+                        <div style={{ padding: '8px 0' }}>
+                          <p><strong>Статус:</strong> <span style={{ color: option?.color === 'default' ? 'inherit' : option?.color }}>{option?.label}</span></p>
+                          <p><strong>Приоритет:</strong> <span style={{ color: priorityOption?.color === 'default' ? 'inherit' : priorityOption?.color }}>{priorityOption?.label}</span></p>
+                          {record.description && <p><strong>Описание:</strong> {record.description}</p>}
+                          <div style={{ marginTop: '12px' }}>
+                            <Space>
+                              <Button icon={<EditOutlined />} size="small" onClick={() => handleEdit(record)} />
+                              <Button icon={<DeleteOutlined />} size="small" danger onClick={() => handleDeleteClick(record._id)} />
+                            </Space>
+                          </div>
+                        </div>
+                      );
+                    },
+                    rowExpandable: (record: Event) => isMobile,
+                    expandedRowKeys: Array.from(expandedRows),
+                    onExpandedRowsChange: (keys: readonly React.Key[]) => {
+                      setExpandedRows(new Set(keys.map(String)));
+                    },
                   }}
                 />
               </Card>
@@ -561,13 +622,6 @@ export default function AdminPage() {
                 <Form.Item
                   name="time"
                   label="Время"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Время не заполнено. Рекомендуется указать время для события.',
-                      warningOnly: true,
-                    }
-                  ]}
                 >
                   <TimePicker
                     style={{ width: '100%' }}
@@ -626,7 +680,6 @@ export default function AdminPage() {
                   name="title"
                   label="Название"
                   rules={[
-                    { required: true, message: 'Пожалуйста, введите название' },
                     { min: 3, message: 'Минимум 3 символа' },
                     { max: 100, message: 'Максимум 100 символов' }
                   ]}
@@ -672,7 +725,6 @@ export default function AdminPage() {
                       const index = WORSHIP_SERVICES.indexOf(value);
                       const customIndex = customServices.indexOf(value);
                       const order = index >= 0 ? index : WORSHIP_SERVICES.length + customIndex;
-
                       return (
                         <span
                           style={{
@@ -960,7 +1012,6 @@ export default function AdminPage() {
                           const index = WORSHIP_SERVICES.indexOf(value);
                           const customIndex = customServices.indexOf(value);
                           const order = index >= 0 ? index : WORSHIP_SERVICES.length + customIndex;
-
                           return (
                             <span
                               style={{

@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
-import Image from 'next/image'
 import { Clock, Bell, ChevronRight, Star, Calendar } from 'lucide-react'
 import { PageWrapper } from '@/components/layout'
 import { Card, CardContent } from '@/components/ui/card'
 import { WeeklySchedule } from '@/components/ui/weekly-schedule'
+import { AnimatedHero } from '@/components/ui/animated-hero'
 
 export const metadata: Metadata = {
   title: 'Расписание богослужений',
@@ -12,31 +12,31 @@ export const metadata: Metadata = {
 
 const upcomingHolidays = [
   {
-    date: '14 октября',
-    name: 'Покров Пресвятой Богородицы',
-    services: ['8:00 — Божественная Литургия', '17:00 — Праздничное всенощное бдение'],
+    date: '28 августа',
+    name: 'Успение Пресвятой Богородицы',
+    services: ['Наконуне 27.06 в 18:00 — Праздничное всенощное бдение', '8:00 — Божественная Литургия'],
   },
-  {
-    date: '4 ноября',
-    name: 'Казанская икона Божией Матери',
-    services: ['8:00 — Божественная Литургия'],
-  },
-  {
-    date: '21 ноября',
-    name: 'Собор Архистратига Михаила',
-    services: ['8:00 — Божественная Литургия'],
-  },
-  {
-    date: '4 декабря',
-    name: 'Введение во храм Пресвятой Богородицы',
-    services: ['8:00 — Божественная Литургия', '17:00 — Праздничное всенощное бдение'],
-  },
+  // {
+  //   date: '4 ноября',
+  //   name: 'Казанская икона Божией Матери',
+  //   services: ['8:00 — Божественная Литургия'],
+  // },
+  // {
+  //   date: '21 ноября',
+  //   name: 'Собор Архистратига Михаила',
+  //   services: ['8:00 — Божественная Литургия'],
+  // },
+  // {
+  //   date: '4 декабря',
+  //   name: 'Введение во храм Пресвятой Богородицы',
+  //   services: ['8:00 — Божественная Литургия', '17:00 — Праздничное всенощное бдение'],
+  // },
 ]
 
 const sacramentSchedule = [
   {
     name: 'Исповедь',
-    schedule: 'Перед каждой Литургией и во время вечернего богослужения',
+    schedule: 'Во время или после вечернего богослужения',
   },
   {
     name: 'Крещение',
@@ -60,30 +60,11 @@ export default function SchedulePage() {
   return (
     <PageWrapper>
       {/* Hero */}
-      <section className="relative py-24 md:py-32">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/church-interior.jpg"
-            alt="Расписание богослужений"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 " />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/20 text-secondary rounded-full text-sm font-medium mb-4">
-              <Calendar className="w-4 h-4" />
-              Расписание
-            </div>
-            <h1 className="font-serif text-4xl md:text-5xl font-bold text-primary-foreground mb-6 text-balance">
-              Расписание богослужений
-            </h1>
-
-          </div>
-        </div>
-      </section>
+      <AnimatedHero
+        imageSrc="/images/church-interior.jpg"
+        imageAlt="Расписание богослужений"
+        title="Расписание богослужений"
+      />
 
       {/* Timetable section with new design */}
       <section className="py-16 md:py-24">
